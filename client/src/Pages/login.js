@@ -1,11 +1,13 @@
 import React, { useState, useEffect  } from 'react';
+import logo from '.././RunningThoughts.png';
 import {
   Grid,
   TextField,
   Paper,
   Button
 } from '@material-ui/core';
-const Login = () => {
+const Login = (props) => {
+  console.log(props);
     const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginValid, setLoginValid] = useState(false);
@@ -23,12 +25,13 @@ const Login = () => {
     };
 
     return (
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
         <div style={{ border: "3rem solid"}}>
             <Paper>
                 <Grid
                     container
                     spacing={8}
-        //   p={2}
                     direction={'column'}
                     justify={'center'}
                     alignItems={'center'}
@@ -45,11 +48,18 @@ const Login = () => {
             ></TextField>
           </Grid>
           <Grid item xs={12}>
-            <Button disabled={!loginValid} fullWidth> Login </Button>
+            <Button 
+              disabled={!loginValid} 
+              fullWidth
+              onClick={() => props.setUser(userName)}> 
+              Login 
+            </Button>
           </Grid>
         </Grid>
       </Paper>
     </div>
+      </header>
+        
   );
 };
 
