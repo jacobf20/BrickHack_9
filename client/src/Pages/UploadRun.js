@@ -10,6 +10,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { addRun } from '../Services/runService';
 
 
 
@@ -18,46 +19,66 @@ const UploadRun = (props) => {
   const [date, setDate] = useState("")
   const [sleepTime, setSleepTime] = useState("")
   const [time, setTime] = useState("")
+  const [type, setType] = useState("");
   const [pace, setPace] = useState(undefined)
-  const [inputField, setInputField] = useState({
-    "Name": "",
-    "Type": "",
-    "Pace": {
-      "Minutes": undefined,
-      "Seconds": undefined,
-    },
-    "Weather": "",
-    "Miles": undefined,
-    "Time": {
-      "Minutes": 0,
-      "Seconds": 0
-    },
-    "AHR": undefined,
-    "BeforeRating": undefined,
-    "DuringRating": undefined,
-    "Sleep": {
-      "Hours": 0,
-      "Minutes": 0,
-    },
-    "RHR": undefined,
-    "Notes": "",
-    "Date": {
-      "Month": 0,
-      "Day": 0,
-      "Year": 0
-    }
-  })
+  const [user, setUser] = useState(props.user);
+
+  const getDefaultInputFields = () => {
+    return {
+      "Username": user,
+      "Name": "",
+      "Type": "",
+      "Pace": {
+        "Minutes": "",
+        "Seconds": "",
+      },
+      "Weather": "",
+      "Miles": "",
+      "Time": {
+        "Minutes": 0,
+        "Seconds": 0
+      },
+      "AHR": "",
+      "BeforeRating": "",
+      "DuringRating": "",
+      "Sleep": {
+        "Hours": 0,
+        "Minutes": 0,
+      },
+      "RHR": "",
+      "Notes": "",
+      "Date": {
+        "Month": 0,
+        "Day": 0,
+        "Year": 0
+      }
+    };
+  }
+
+  const [inputField, setInputField] = useState(getDefaultInputFields())
+
+  const clearInputFields = () => {
+    setInputField(getDefaultInputFields());
+  }
 
   useEffect(() => {
     console.log(time?.length);
     console.log(inputField?.Miles?.length);
-    if (time?.length === 4 && inputField?.Miles?.length > 0){
+    if (time?.length === 5 && inputField?.Miles?.length > 0){
       const miles = inputField?.Miles
       const  timeSplit = time.split(":")
       const  minute = timeSplit[0]
       const  sec = timeSplit[1]
-      const milesPerhoursSec = miles / ((minute * 60) + sec) 
-      setPace((inputField.Miles/time).toFixed(2))
+      const minutesInSeconds = minute * 60;
+      const totalSeconds = minutesInSeconds + Number(sec);
+      const milesPerSec = totalSeconds / miles;
+      const milesPerMin = milesPerSec / 60;
+      const minuteResult = Math.floor(milesPerMin);
+      const secondResult = ((milesPerMin - minuteResult) * 60).toFixed(0);
+      const result = minuteResult + ":" + secondResult;
+      setPace(result);
+      let paceResult = {"Minutes": minuteResult, "Seconds": secondResult};
+      setInputField({...inputField, "Pace": paceResult} )
     } 
 }, [time, inputField.Miles])
 
@@ -67,6 +88,11 @@ const UploadRun = (props) => {
 
   const submitButton = () =>{
     console.log("um what", inputField);
+  }
+
+  const handleTypeChange = (e) => {
+    setType(e.target.value);
+    setInputField({...inputField, "Type": e.target.value});
   }
 
   const parseTime = (e) =>{
@@ -113,13 +139,15 @@ const UploadRun = (props) => {
         </Grid>
         <Grid item xs={4}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Type of Run</InputLabel>
+            <InputLabel id="typeOfRunLabel">Type of Run</InputLabel>
             <Select
               labelId="typeOfRunLabel"
               id="Type"
+              value={type}
+              onChange={handleTypeChange}
               label="Type of Run"
             >
-              <MenuItem value={"Training Run"}>Training Run</MenuItem>
+              <MenuItem value={"Training"}>Training</MenuItem>
               <MenuItem value={"Long Run"}>Long Run</MenuItem>
               <MenuItem value={"Race"}>Race</MenuItem>
               <MenuItem value={"Workout"}>Workout</MenuItem>
@@ -168,7 +196,7 @@ const UploadRun = (props) => {
           <TextField
             id="outlined-number"
             label="Pace per mile"
-            type="number"
+            type="string"
             disabled
             value={pace}
             InputLabelProps={{
@@ -196,7 +224,7 @@ const UploadRun = (props) => {
         </Grid>
         <Grid item xs={4}  >
           <TextField
-              id="During Rating"
+              id="DuringRating"
               label="During Rating"
               variant="filled"
               onChange={inputsHandler} 
@@ -236,7 +264,14 @@ const UploadRun = (props) => {
           <Button 
             variant="contained" 
             size="large"
-            onClick={submitButton} 
+            onClick={() => addRun(inputField, props.user).then(response => {
+              if (response == 200) {
+                alert("Run successfully added!");
+                clearInputFields();
+                setDate(""); setSleepTime(""); setTime(""); setType(""); setPace("");
+              }
+            }
+            )} 
             style={{width: "180px", height: "60px"}}>
             Submit
           </Button>
