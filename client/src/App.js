@@ -23,7 +23,7 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<Layout />}> */}
             <Route index element={<Home />} />
-            <Route path="uploadRun" element={<UploadRun />} />
+            <Route path="uploadRun" element={<UploadRun user={user}/>} />
             <Route path="runs" element={<Runs user={user}/>} />
         </Routes>
       </div>
