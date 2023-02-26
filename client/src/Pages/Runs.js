@@ -14,47 +14,42 @@ import { getRuns } from '../Services/runService';
 
 
 const Runs = (props) => {
-
+  const [runs, setRuns] = useState()
   const user = props.user
 
   useEffect(() => { 
     console.log("user: ", user);
     getRuns(user).then((response) => {
       console.log("response: ", response);
+      setRuns(response)
     })
   }, []);
 
     return (<>
-      <Accordion>
+      {runs?.length > 0 ? runs.map((item,index) => {
+        return <Accordion key={index} style={{width: "100%"}}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>Accordion 1</Typography>
+          <Typography>{item.name}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
+            <p>Description: {item.notes}</p>
+            <p>Weather: {item.weather}</p>
+            <p>Miles: {item.miles}</p>
+
+            {/* Time: {item.time} */}
+            {/* Pace: {item.pace} */}
+            <p>Average Heart Rate: {item.ahr}</p>
+            <p>Before Rating: {item.beforeRating}</p>
+            <p>After Rating: {item.afterRating}</p>
+            {/* Sleep: {item.sleep} */}
+            <p>rhr: {item.rhr}</p>
         </AccordionDetails>
       </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography>Accordion 2</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+      }) : <h1>No Runs Logged!</h1>}
     </>);
 };
 
