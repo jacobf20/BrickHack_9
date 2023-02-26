@@ -1,16 +1,31 @@
-import logo from './RunningThoughts.PNG';
+import React, { useState } from 'react';
+
 import './App.css';
-import * as React from 'react';
-import LoginPage from './Pages/login';
+import { BrowserRouter, Route, Routes  } from 'react-router-dom';
+import Login from './Pages/login';
+import Home from './Pages/Home'
+import ButtonAppBar from './Components/ButtonAppBar'
+import UploadRun from './Pages/UploadRun';
 
 function App() {
+  const [user, setUser] = useState();
+
+  if (!user) {
+    return <Login setUser={setUser} />
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <LoginPage></LoginPage>
-      </header>
-    </div>
+    <BrowserRouter>
+    <ButtonAppBar user={user} setUser={setUser}/>
+      {/* <div className='App'> */}
+      <div className="App">
+        <Routes>
+          {/* <Route path="/" element={<Layout />}> */}
+            <Route index element={<Home />} />
+            <Route path="uploadRun" element={<UploadRun />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

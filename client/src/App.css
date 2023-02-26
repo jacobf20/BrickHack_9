@@ -1,6 +1,7 @@
-.App {
+/* .App {
   text-align: center;
-}
+  padding-top: 60px;
+} */
 
 .App-logo {
   height: 40vmin;
@@ -11,19 +12,29 @@
   /* .App-logo {
     animation: App-logo-spin infinite 1s linear;
   } */
+    .Coach-Warth {
+      animation: App-logo-spin infinite 1s linear;
+    }
 }
 
-.App-header {
+.App {
   /* Strava Colors #fc4c02 */
   background-color: #ed7d31;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 75px;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.Run-Form {
+  display: 'flex';
+  align-items: 'center';
+  justify-content: 'center';
+  }
 
 .App-link {
   color: #61dafb;
