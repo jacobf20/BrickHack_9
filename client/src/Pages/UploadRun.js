@@ -18,6 +18,7 @@ const UploadRun = (props) => {
   const [date, setDate] = useState("")
   const [sleepTime, setSleepTime] = useState("")
   const [time, setTime] = useState("")
+  const [pace, setPace] = useState(undefined)
   const [inputField, setInputField] = useState({
     "Name": "",
     "Type": "",
@@ -46,6 +47,19 @@ const UploadRun = (props) => {
       "Year": 0
     }
   })
+
+  useEffect(() => {
+    console.log(time?.length);
+    console.log(inputField?.Miles?.length);
+    if (time?.length === 4 && inputField?.Miles?.length > 0){
+      const miles = inputField?.Miles
+      const  timeSplit = time.split(":")
+      const  minute = timeSplit[0]
+      const  sec = timeSplit[1]
+      const milesPerhoursSec = miles / ((minute * 60) + sec) 
+      setPace((inputField.Miles/time).toFixed(2))
+    } 
+}, [time, inputField.Miles])
 
   const inputsHandler = (e) =>{
     setInputField({...inputField, [e.target.id]: e.target.value} )
@@ -150,13 +164,17 @@ const UploadRun = (props) => {
               onChange={parseTime}
             />
         </Grid>
-        <Grid item xs={4}  >
+        <Grid item xs={4}>
           <TextField
-              id="Pace"
-              label="Pace"
-              variant="filled"
-              disabled
-            />
+            id="outlined-number"
+            label="Pace per mile"
+            type="number"
+            disabled
+            value={pace}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
         </Grid>
         <Grid item xs={4}  >
           <TextField
