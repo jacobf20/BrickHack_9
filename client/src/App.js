@@ -22,7 +22,7 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<Layout />}> */}
             <Route index element={<Home />} />
-            <Route path="uploadRun" element={<UploadRun />} />
+            <Route path="uploadRun" element={<UploadRun user={user}/>} />
         </Routes>
       </div>
     </BrowserRouter>
