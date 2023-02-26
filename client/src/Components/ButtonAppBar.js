@@ -34,6 +34,9 @@ export default function ButtonAppBar(props) {
                     <li>
                         <Link to="/UploadRun">Upload Run</Link>
                     </li>
+                    <li>
+                        <Link to="/runs">MyRuns</Link>
+                    </li>
                     </ul>
                 </nav>
 
