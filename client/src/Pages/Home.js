@@ -12,11 +12,11 @@ export default function Home(props) {
       {/* <div className="App-header"> */}
         <img src={logo} className="App-logo" alt="logo" />
       {/* </div> */}
-      <img src={coach} className={"Coach-Warth"} alt="warth" style={{
+      {/* <img src={coach} className={"Coach-Warth"} alt="warth" style={{
         "position": "fixed",
         "bottom": 0,
         "right": 0
-      }} />
+      }} /> */}
     </>
   )
 }

@@ -6,6 +6,7 @@ import Login from './Pages/login';
 import Home from './Pages/Home'
 import ButtonAppBar from './Components/ButtonAppBar'
 import UploadRun from './Pages/UploadRun';
+import Runs from './Pages/Runs'
 
 function App() {
   const [user, setUser] = useState();
@@ -22,7 +23,8 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<Layout />}> */}
             <Route index element={<Home />} />
-            <Route path="uploadRun" element={<UploadRun user={user}/>} />
+            <Route path="uploadRun" element={<UploadRun />} />
+            <Route path="runs" element={<Runs user={user}/>} />
         </Routes>
       </div>
     </BrowserRouter>
