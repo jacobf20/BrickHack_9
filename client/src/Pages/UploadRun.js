@@ -141,16 +141,17 @@ const UploadRun = (props) => {
           <FormControl fullWidth>
             <InputLabel id="typeOfRunLabel">Type of Run</InputLabel>
             <Select
+              
               labelId="typeOfRunLabel"
               id="Type"
               value={type}
               onChange={handleTypeChange}
               label="Type of Run"
             >
-              <MenuItem value={"Training"}>Training</MenuItem>
-              <MenuItem value={"Long Run"}>Long Run</MenuItem>
-              <MenuItem value={"Race"}>Race</MenuItem>
-              <MenuItem value={"Workout"}>Workout</MenuItem>
+              <MenuItem sx={{ m: 2 }} value={"Training"}>Training</MenuItem>
+              <MenuItem sx={{ m: 2 }} value={"Long Run"}>Long Run</MenuItem>
+              <MenuItem sx={{ m: 2 }} value={"Race"}>Race</MenuItem>
+              <MenuItem sx={{ m: 2 }} value={"Workout"}>Workout</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -281,34 +282,5 @@ const UploadRun = (props) => {
     </Paper>
   </>);
 };
-
-type Run = {
-  "Name": String,
-  "Type" ?: String,
-  "Pace" ?: {
-    "Minutes" ?: Number,
-    "Seconds" ?: Number
-  },
-  "Weather" ?: String,
-  "Miles" ?: Number,
-  "Time" ?: {
-    "Minutes" ?: Number,
-    "Seconds" ?: Number
-  },
-  "AHR" ?: Number,
-  "BeforeRating" ?: Number,
-  "DuringRating" ?: Number,
-  "Sleep" ?: {
-    "Hours" ?: Number,
-    "Minutes" ?: Number,
-  },
-  "RHR" ?: Number,
-  "Notes" ?: String,
-  "Date" ?: {
-    "Month": Number,
-    "Day": Number,
-    "Year": Number
-  }
-}
 
 export default UploadRun;
