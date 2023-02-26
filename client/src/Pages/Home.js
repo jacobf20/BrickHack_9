@@ -1,5 +1,5 @@
 import React, { useState, setState } from 'react';
-import logo from '.././RunningThoughts.png';
+import logo from '.././RunningThoughts.PNG';
 import coach from ".././coach.pdf"
 
 

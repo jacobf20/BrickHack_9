@@ -1,5 +1,5 @@
 import React, { useState, useEffect  } from 'react';
-import logo from '.././RunningThoughts.png';
+import logo from '.././RunningThoughts.PNG';
 import {
   Grid,
   TextField,
@@ -25,7 +25,7 @@ const Login = (props) => {
     };
 
     return (
-      <header className="App-header">
+      <header className="App">
         <img src={logo} className="App-logo" alt="logo" />
         <div style={{ border: "3rem solid"}}>
             <Paper>

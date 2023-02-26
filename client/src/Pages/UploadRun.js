@@ -1,5 +1,4 @@
 import React, { useState, useEffect  } from 'react';
-import logo from '.././RunningThoughts.png';
 import {
   Grid,
   TextField,
