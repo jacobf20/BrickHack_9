@@ -27,26 +27,35 @@ const Runs = (props) => {
 
     return (<>
       {runs?.length > 0 ? runs.map((item,index) => {
-        return <Accordion key={index} style={{width: "100%"}}>
+
+        const newTime = item.time.minutes + ":" + item.time.seconds
+        const newPace = item.pace.minutes + ":" + item.time.seconds
+        const newSleep = item.sleep.hours + ":" + item.sleep.minutes
+        const newDate = item.date.month+"/"+item.date.day+"/"+item.date.year
+
+
+        return <Accordion key={index} style={{width: "95%"}}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>{item.name}</Typography>
+          <div container justify="space-between">
+          <Typography variant="h4">{item.name}</Typography>
+          <Typography   inline variant="body1" align="left">{newDate}</Typography>
+          </div>
         </AccordionSummary>
         <AccordionDetails>
             <p>Description: {item.notes}</p>
             <p>Weather: {item.weather}</p>
             <p>Miles: {item.miles}</p>
-
-            {/* Time: {item.time} */}
-            {/* Pace: {item.pace} */}
+            <p>Time: {newTime}</p>
+            <p>Pace: {newPace}</p>
             <p>Average Heart Rate: {item.ahr}</p>
             <p>Before Rating: {item.beforeRating}</p>
             <p>After Rating: {item.afterRating}</p>
-            {/* Sleep: {item.sleep} */}
-            <p>rhr: {item.rhr}</p>
+            <p>Sleep: {newSleep}</p>
+            <p>Resting Heart Rate: {item.rhr}</p>
         </AccordionDetails>
       </Accordion>
       }) : <h1>No Runs Logged!</h1>}

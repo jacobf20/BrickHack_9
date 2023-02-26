@@ -53,10 +53,10 @@ const Login = (props) => {
                   justify={'center'}
                   alignItems={'center'}
               >
-              <Grid item xs={12}>
+              <Grid item xs={11}>
                 <TextField label="Username" onChange={changeUsername}></TextField>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={11}>
                 <TextField 
                     value={password}
                     label="Password" 
@@ -64,13 +64,13 @@ const Login = (props) => {
                     onChange={changePassword}
                 ></TextField>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={11}>
                 <Button 
                   disabled={!loginValid} 
                   fullWidth
                   onClick={() => {
                     getUser(userName).then(response => {
-                      if (response.password == password) {
+                      if (response.password === password) {
                         props.setUser(userName);
                       } else {
                         alert("Password is incorrect.");
@@ -125,10 +125,10 @@ const Login = (props) => {
                     "FirstName":firstName,
                     "LastName":lastName
                   }).then(response => {
-                    if (response == 400) {
+                    if (response === 400) {
                       alert("This username is already in use.");
                     }
-                    else if (response == 200) {
+                    else if (response === 200) {
                       props.setUser(userName);
                     }
                   })}> 
