@@ -8,7 +8,6 @@ import {
   Button
 } from '@material-ui/core';
 const Login = (props) => {
-  console.log(props);
     const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [firstName, setFirstName] = useState("");
