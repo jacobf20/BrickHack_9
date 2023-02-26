@@ -1,6 +1,6 @@
 import React, { useState, useEffect  } from 'react';
 import logo from '.././RunningThoughts.PNG';
-import { createUser } from '../Services/userService';
+import { createUser, getUser } from '../Services/userService';
 import {
   Grid,
   TextField,
@@ -59,7 +59,9 @@ const Login = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <TextField 
+                    value={password}
                     label="Password" 
+                    type={'password'}
                     onChange={changePassword}
                 ></TextField>
               </Grid>
@@ -67,7 +69,16 @@ const Login = (props) => {
                 <Button 
                   disabled={!loginValid} 
                   fullWidth
-                  onClick={() => props.setUser(userName)}> 
+                  onClick={() => {
+                    getUser(userName).then(response => {
+                      if (response.password == password) {
+                        props.setUser(userName);
+                      } else {
+                        alert("Password is incorrect.");
+                        setPassword("");
+                      }
+                    });
+                  }}> 
                   Login 
                 </Button>
               </Grid>
@@ -89,9 +100,7 @@ const Login = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <TextField 
-                    value={password}
                     label="Password" 
-                    type={'password'}
                     onChange={changePassword}
                 ></TextField>
               </Grid>
@@ -118,7 +127,7 @@ const Login = (props) => {
                     "LastName":lastName
                   }).then(response => {
                     if (response == 400) {
-                      alert("This username is already in use.")
+                      alert("This username is already in use.");
                     }
                     else if (response == 200) {
                       props.setUser(userName);

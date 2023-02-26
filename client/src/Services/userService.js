@@ -8,3 +8,8 @@ export async function createUser(data) {
     });
     return await response.json();
 }
+
+export async function getUser(username) {
+    const response = await fetch(apiDomain + '/api/Users/GetUser/' + username);
+    return await response.json();
+}
